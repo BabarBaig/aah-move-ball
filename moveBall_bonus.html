@@ -1,0 +1,93 @@
+<div id="ball" style="
+  z-index:5;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:green"></div>
+
+<script>
+
+var velocityX = 5;
+var velocityY = 10;
+var positionX = 0;
+var positionY = 0;
+var ball = document.getElementById('ball');
+
+// YOUR CODE
+var forward = true;
+
+function getRandomColor(){
+  return ('#'+Math.floor(Math.random()*16777215).toString(16));
+}
+
+//write a function that can change the position of the html element "ball"
+function moveBall() {
+  // two fixed x-axis coordinates (you will use these variable in step 3)
+  var Xmin = 0;
+  var Xmax = 900;
+  var Ymin = 0;
+  var Ymax = 600;
+
+  if (forward) {
+    positionX += velocityX;
+    positionY += velocityY;
+  }
+  else {
+    positionX -= velocityX;
+    positionY -= velocityY;
+  }
+
+  if (positionX < Xmin){
+    forward = true;
+    ball.style.background = getRandomColor();
+    let temp = velocityX;
+    velocityX = velocityY;
+    velocityY = temp;
+
+    if (ball.style.width == '50px'){
+      ball.style.width = '75px';
+      ball.style.height = '75px';
+    }
+    else {
+      ball.style.width = '50px';
+      ball.style.height = '50px';
+    }
+  }
+  if (positionX > Xmax){
+    forward = false;
+    ball.style.background = getRandomColor();
+    let temp = velocityX;
+    velocityX = velocityY;
+    velocityY = temp;
+  }
+
+  if (positionY < Ymin){
+    forward = true;
+    ball.style.background = getRandomColor();
+
+    if (ball.style.width == '50px'){
+      ball.style.width = '75px';
+      ball.style.height = '75px';
+    }
+    else {
+      ball.style.width = '50px';
+      ball.style.height = '50px';
+    }
+  }
+  if (positionY > Ymax){
+    forward = false;
+    ball.style.background = getRandomColor();
+  }
+
+  ball.style.left = positionX + "px";
+  ball.style.top  = positionY + "px";
+}
+
+// This call the moveBall function every 100ms
+setInterval(moveBall, 30);
+
+// ----------------
+</script>
